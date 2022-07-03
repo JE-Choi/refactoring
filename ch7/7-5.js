@@ -1,11 +1,36 @@
+/**
+ * 7.7 클래스 추출하기
+ * - 클래스 1개당 하나의 역할/책임/도메인을 가지는 것이 좋음.
+ * - 내부적으로 TemplephoneNumber을 가지고 사용하다가, 외부에서도 필요하면 export하면 됨.
+ */
+class TemplephoneNumber{
+  #areaCode;
+  #number;
+
+  constructor(areaCode, number) {
+    this.#areaCode = areaCode;
+    this.#number = number;
+  }
+
+  get areaCode() {
+    return this.#areaCode;
+  }
+
+  get number() {
+    return this.#number;
+  }
+
+  get toString() {
+    return `(${this.#areaCode}) ${this.#number}`;
+  }
+}
+
 class Person {
   #name;
-  #officeAreaCode;
-  #officeNumber;
+  #templephoneNumber;
   constructor(name, areaCode, number) {
     this.#name = name;
-    this.#officeAreaCode = areaCode;
-    this.#officeNumber = number;
+    this.#templephoneNumber = new TemplephoneNumber(areaCode, number);
   }
 
   get name() {
@@ -17,28 +42,10 @@ class Person {
   }
 
   get telephoneNumber() {
-    return `(${this.officeAreaCode}) ${this.officeNumber}`;
-  }
-
-  get officeAreaCode() {
-    return this.#officeAreaCode;
-  }
-
-  set officeAreaCode(arg) {
-    this.#officeAreaCode = arg;
-  }
-
-  get officeNumber() {
-    return this.#officeNumber;
-  }
-
-  set officeNumber(arg) {
-    this.#officeNumber = arg;
+    return this.#templephoneNumber.toString;
   }
 }
 
-const person = new Person('엘리', '010', '12345678');
+const person = new Person('지은', '010', '12345678');
 console.log(person.name);
-console.log(person.officeAreaCode);
-console.log(person.officeNumber);
 console.log(person.telephoneNumber);
