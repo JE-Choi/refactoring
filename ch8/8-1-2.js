@@ -30,17 +30,13 @@ export class AccountType {
   /**
    * this.type에 의존되어있으니까,
    * AccountType로 옮김
+   * => 근데, AccountType에만 관련있지 않고, daysOverdrawn...baseCharge에도 연관이 되어있으니까 Account에 있어도 괜찮을 듯.
    */
   overdraftCharge(daysOverdrawn) {
-    if (this.isPremium) {
-      const baseCharge = 10;
-      if (daysOverdrawn <= 7){
-        return baseCharge;
-      }else {
-        return baseCharge + (daysOverdrawn - 7) * 0.85;
-      }
-    } else {
+    if (!this.isPremium) {
       return daysOverdrawn * 1.75;
     }
+    const baseCharge = 10;
+    return daysOverdrawn <= 7 ? baseCharge : baseCharge + (daysOverdrawn - 7) * 0.85;
   }
 }
