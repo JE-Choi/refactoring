@@ -1,5 +1,5 @@
 /**
- * 8.2 함수 옮기기
+ * 8.1 함수 옮기기
  * - 중첩된 함수는 trackSummary내부에서만 쓰일 필요없고 외부에서 재활용될 가능성이 있다.
  */
 export function trackSummary(points) {
