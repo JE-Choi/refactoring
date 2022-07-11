@@ -4,13 +4,13 @@
 function getLines (input) {
   return input.split('\n');
 }
-function find (lines, country) {
+function find (lines, inputCountry) {
   const result = [];
   for (const line of lines.slice(1).filter((item)=>!!item)) {
     const record = line.split(',');
-    const [_city, _country, _phone] = record;
-    if (_country.trim() === country) {
-      result.push({ city: _city.trim(), phone: _phone.trim() });
+    const [office, country, telephone] = record;
+    if (country.trim() === inputCountry) {
+      result.push({ city: office.trim(), phone: telephone.trim() });
     }
   }
   return result;
