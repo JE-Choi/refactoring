@@ -1,24 +1,25 @@
+/**
+ * 8.2 필드 옮기기
+ */
 export class Customer {
   #name;
-  #discountRate; // 할인율
   #contract; // 계약
   constructor(name, discountRate) {
     this.#name = name;
-    this.#discountRate = discountRate;
-    this.#contract = new CustomerContract(this.dateToday());
+    this.#contract = new CustomerContract(this.dateToday(), discountRate);
   }
 
   get discountRate() {
-    return this.#discountRate;
+    return this.#contract.discountRate;
   }
 
   becomePreferred() {
-    this.#discountRate += 0.03;
+    this.#contract.discountRate += 0.03;
     // 다른 코드들이 있음...
   }
 
   applyDiscount(amount) {
-    return amount - amount * this.#discountRate;
+    return amount - amount * this.#contract.discountRate;
   }
 
   dateToday() {
@@ -26,10 +27,24 @@ export class Customer {
   }
 }
 
+/**
+ * 계약의 할인율이기 때문에, discountRate은 CustomerContract내부로
+ */
 class CustomerContract {
   #startDate;
-  constructor(startDate) {
+  #discountRate; // 할인율
+  constructor(startDate, discountRate) {
     this.#startDate = startDate;
+    this.#discountRate = discountRate;
+  }
+
+
+  get discountRate() {
+    return this.#discountRate;
+  }
+
+  set discountRate(value) {
+    this.#discountRate = value;
   }
 }
 
