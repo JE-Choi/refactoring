@@ -1,7 +1,7 @@
 export class Customer {
   #name;
-  #discountRate;
-  #contract;
+  #discountRate; // 할인율
+  #contract; // 계약
   constructor(name, discountRate) {
     this.#name = name;
     this.#discountRate = discountRate;
@@ -18,7 +18,7 @@ export class Customer {
   }
 
   applyDiscount(amount) {
-    return amount.subtract(amount.multiply(this.#discountRate));
+    return amount - amount * this.#discountRate;
   }
 
   dateToday() {
@@ -32,3 +32,11 @@ class CustomerContract {
     this.#startDate = startDate;
   }
 }
+
+let customer = new Customer('jieun', 0.1);
+console.log(customer.discountRate); // 0.1
+customer.becomePreferred();
+console.log(customer.discountRate); // 0.13
+let applyDiscount = customer.applyDiscount(10000);
+console.log(applyDiscount); // 8700
+console.log(customer.dateToday());
